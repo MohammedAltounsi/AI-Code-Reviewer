@@ -1,3 +1,9 @@
+<div align="center">
+
+**English** · [العربية](README.ar.md)
+
+</div>
+
 # AI Code Reviewer
 
 Paste code, or a GitHub file URL. Get a structured code review back: a
@@ -5,7 +11,15 @@ Code Health Score, findings grouped by category (security, bugs,
 performance, style, best-practices), severity ranked, each with a specific
 fix. Export as Markdown (for a PR comment) or CSV.
 
-**Live:** https://ai-code-reviewer-coral-five.vercel.app
+**🔗 Live:** https://ai-code-reviewer-coral-five.vercel.app
+
+Built and designed end to end by **Mohammed Altounsi** — [LinkedIn](https://www.linkedin.com/in/mohammed-altounsi/)
+
+---
+
+## Screenshot
+
+![AI Code Reviewer — Health Score with severity-ranked findings](screenshots/review.png)
 
 ## The core design decision
 
