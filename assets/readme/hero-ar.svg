@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
   <title id="title">مُراجِع الأكواد بالذكاء الاصطناعي</title>
-  <desc id="desc">الصق ملفاً أو رابطاً من GitHub واحصل على ملاحظات مرتّبة حسب الخطورة مع إصلاح لكل منها. مثال لمراجعة يحدّد الأسطر بشريط خطورة ويخصم النقاط لكل ملاحظة: 100 ناقص 77 تساوي درجة صحّة 23.</desc>
+  <desc id="desc">تطبيق Next.js يراجع ملف كود واحداً باستخدام Claude ويعرض المشاكل حسب الخطورة مع إصلاح مقترح لكل منها. يعرض المثال دالة من سبعة أسطر والنقاط المخصومة لكل سطر ودرجة صحّة 100 ناقص 77 = 23.</desc>
   <defs>
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
       <path d="M40 0H0V40" fill="none" stroke="#f4efe4" stroke-opacity="0.05"/>
@@ -11,12 +11,12 @@
   <rect width="1200" height="420" rx="20" fill="url(#grid)"/>
 
   <g id="title-block" font-family="'Segoe UI', Tahoma, 'Geeza Pro', 'Noto Naskh Arabic', sans-serif" text-anchor="start" direction="rtl">
-    <text x="1144" y="86" fill="#ff7a1a" font-size="20">مراجعة ساكنة // ملف واحد</text>
+    <text x="1144" y="86" fill="#ff7a1a" font-size="20">Next.js + Anthropic API</text>
     <text x="1144" y="164" fill="#f4efe4" font-size="68" font-weight="700">مُراجِع الأكواد</text>
     <text x="1144" y="236" fill="#f4efe4" font-size="50" font-weight="700">بالذكاء الاصطناعي</text>
-    <text x="1144" y="296" fill="#c9bfb0" font-size="24">الصق ملفاً أو رابطاً من GitHub، واحصل على</text>
-    <text x="1144" y="330" fill="#c9bfb0" font-size="24">ملاحظات مرتّبة حسب الخطورة، لكلٍّ منها إصلاح،</text>
-    <text x="1144" y="364" fill="#c9bfb0" font-size="24">ودرجة لا يختارها النموذج.</text>
+    <text x="1144" y="296" fill="#c9bfb0" font-size="24">يراجع ملف كود واحداً باستخدام Claude،</text>
+    <text x="1144" y="330" fill="#c9bfb0" font-size="24">ويعرض المشاكل حسب الخطورة،</text>
+    <text x="1144" y="364" fill="#c9bfb0" font-size="24">مع إصلاح مقترح لكل مشكلة.</text>
   </g>
 
 <g id="review-panel" transform="translate(-584 0)" font-family="ui-monospace, SFMono-Regular, Consolas, Menlo, monospace">

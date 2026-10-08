@@ -5,7 +5,7 @@
 </div>
 
 <p align="center">
-  <img src="./assets/readme/hero.svg" width="100%" alt="AI Code Reviewer: paste a file or a GitHub URL, get severity-ranked findings with a fix for each, and a Health Score computed in code (100 minus 77 equals 23 in the sample shown)">
+  <img src="./assets/readme/hero.svg" width="100%" alt="AI Code Reviewer: project name next to a sample review of a seven-line JavaScript handler, with points taken off per line and a Health Score of 100 minus 77 = 23">
 </p>
 
 <p align="center">
@@ -16,21 +16,21 @@
   <img src="https://img.shields.io/badge/tested_with-Vitest-6E9F18?style=flat&logo=vitest&logoColor=white" alt="Tested with Vitest">
 </p>
 
-Paste code or a GitHub file URL. You get back a Code Health Score, findings grouped by category (security, bugs, performance, style, best-practices), ranked by severity, each with a specific fix. Export the review as Markdown for a PR comment, or as CSV.
+A Next.js app that reviews one file of code with Claude. You paste the code or a GitHub file URL. The app lists the problems Claude finds, each with a severity, a category and a suggested fix. The categories are security, bug, performance, style and best-practices. The Health Score is 100 minus a fixed number of points per finding. You can copy the review as Markdown for a PR comment or download it as CSV.
 
 **[Open the live app →](https://ai-code-reviewer-coral-five.vercel.app)**
 
-## A real review
+## Example review
 
 <p align="center">
   <img src="./assets/readme/proof-review.png" width="100%" alt="Live app output: Health Score 23 for a pasted JavaScript handler, with a critical SQL injection finding on line 3 and a high-severity unchecked error on line 4, each with a suggested fix">
 </p>
 
-A seven-line Express handler went in. Nine findings came out, led by a critical SQL injection on line 3, and the score landed at 23. [Full screenshot of all nine findings](screenshots/review.png).
+I pasted a seven-line Express handler. The app returned nine findings. The first one is a critical SQL injection on line 3, and the score came out at 23. [Screenshot with all nine findings](screenshots/review.png).
 
-## Why the score can be trusted
+## How the score is calculated
 
-The model never writes the Health Score. Claude decides what is wrong and how severe it is. A fixed formula in [`lib/score.ts`](lib/score.ts) turns that into a number, the same way every time:
+Claude returns the findings and gives each one a severity. The tool schema it fills in has no score field. [`lib/score.ts`](lib/score.ts) starts at 100 and subtracts points per finding:
 
 | Severity | Points off |
 |---|---:|
@@ -39,7 +39,7 @@ The model never writes the Health Score. Claude decides what is wrong and how se
 | medium | −7 |
 | low | −2 |
 
-The score starts at 100 and floors at 0. The companion project, [AI Website Auditor](https://github.com/MohammedAltounsi/AI-Website-Auditor), follows the same rule. Here there is no external scoring API to average, so the deduction table carries the whole weight.
+The score stops at 0. The same list of findings always gives the same score. My other project, [AI Website Auditor](https://github.com/MohammedAltounsi/AI-Website-Auditor), uses the same kind of table but also averages in scores from an external API. This app has no external scoring API, so the table is the whole calculation.
 
 ## How it works
 
@@ -56,11 +56,11 @@ flowchart LR
 <details>
 <summary><b>File by file</b></summary>
 
-1. **`lib/githubFetch.ts`** parses a GitHub file URL with a strict regex into `owner`/`repo`/`branch`/`path`, then fetches from `raw.githubusercontent.com`. The code builds that host itself; it never comes from user input. That removes the SSRF problem class: there is no arbitrary-host fetch to defend, because the code fixes the destination, not the request.
-2. **`lib/analyze.ts`** sends the code to Claude with forced tool-use (`tool_choice: { type: 'tool' }`), so the response is always a validated structured object, never free text to parse.
-3. **`lib/score.ts`** computes the Health Score from the findings list.
-4. **`app/api/review/route.ts`** runs the pipeline, caps pasted code at 50 KB and GitHub fetches at 200 KB, and returns one JSON report.
-5. **`app/page.tsx` + `app/components/*`** hold the paste-code / GitHub-URL toggle, the animated Health Score gauge, category counts, severity-badged findings, and Markdown and CSV export.
+1. **`lib/githubFetch.ts`** splits a GitHub file URL into `owner`/`repo`/`branch`/`path` with a regex and downloads the file from `raw.githubusercontent.com`. The host is a hardcoded string. Only the parsed parts of the URL go into the request path, so a user can't make the server fetch from another host (SSRF).
+2. **`lib/analyze.ts`** sends the code to Claude with forced tool-use (`tool_choice: { type: 'tool', name: 'submit_code_review' }`). Claude has to answer by calling that tool, so the app gets back a JSON object shaped by the tool's input schema instead of free text.
+3. **`lib/score.ts`** computes the Health Score from the list of findings.
+4. **`app/api/review/route.ts`** runs these steps in order and returns one JSON report. It rejects pasted code over 50,000 characters, and `githubFetch` stops downloading at 200,000 bytes.
+5. **`app/page.tsx` + `app/components/*`** contain the switch between pasted code and GitHub URL, the animated score gauge, the count per category, the findings with severity badges, and the Markdown and CSV export.
 
 </details>
 
@@ -80,24 +80,24 @@ npm test
 
 **Stack:** Next.js (App Router), TypeScript, Tailwind, Anthropic API (`claude-sonnet-5`, forced tool-use), Vitest and Testing Library.
 
-## Scope and limits
+## Limits
 
 > [!NOTE]
-> Your code is never executed. It goes to Claude as text for static analysis only. No sandbox, no repo cloning.
+> The app does not run your code. It sends the code to Claude as text. There is no sandbox and no repo cloning.
 
-- Reviews one file at a time: a pasted snippet or a single GitHub blob URL.
-- The GitHub URL regex assumes the branch name has no `/`. That covers `main`, `master`, `develop` and most feature branches. A branch like `feature/x` returns a clear 400 error instead of a wrong parse.
+- It reviews one file at a time: a pasted snippet or one GitHub blob URL.
+- The URL regex expects a branch name without `/`. That works for `main`, `master`, `develop` and most feature branches. A branch like `feature/x` gets split at the first `/`, GitHub answers 404, and the app returns a 400 error that asks you to check the URL and branch name.
 
 <details>
 <summary><b>Possible next steps</b></summary>
 
-- Full-repo review (walk the tree, pick files, handle rate limits). That is a much bigger product than this one.
+- Review a whole repo: walk the file tree, pick files, handle GitHub rate limits. That would be a much bigger project.
 - Syntax highlighting in the paste box (CodeMirror or Monaco).
-- Per-IP rate limiting (Vercel KV) once real traffic arrives.
-- Diff-aware review: paste a diff instead of a whole file.
+- Per-IP rate limiting with Vercel KV if the demo gets real traffic.
+- Review a pasted diff instead of a whole file.
 
 </details>
 
 ---
 
-<p align="center">Built and designed end to end by <b>Mohammed Altounsi</b> · <a href="https://www.linkedin.com/in/mohammed-altounsi/">LinkedIn</a></p>
+<p align="center">Built by <b>Mohammed Altounsi</b> · <a href="https://www.linkedin.com/in/mohammed-altounsi/">LinkedIn</a></p>
