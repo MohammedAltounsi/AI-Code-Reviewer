@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">مُراجِع الأكواد بالذكاء الاصطناعي</title>
+  <desc id="desc">الصق ملفاً أو رابطاً من GitHub واحصل على ملاحظات مرتّبة حسب الخطورة مع إصلاح لكل منها. مثال لمراجعة يحدّد الأسطر بشريط خطورة ويخصم النقاط لكل ملاحظة: 100 ناقص 77 تساوي درجة صحّة 23.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#f4efe4" stroke-opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" rx="20" fill="#0b0a08"/>
+  <rect width="1200" height="420" rx="20" fill="url(#grid)"/>
+
+  <g id="title-block" font-family="'Segoe UI', Tahoma, 'Geeza Pro', 'Noto Naskh Arabic', sans-serif" text-anchor="start" direction="rtl">
+    <text x="1144" y="86" fill="#ff7a1a" font-size="20">مراجعة ساكنة // ملف واحد</text>
+    <text x="1144" y="164" fill="#f4efe4" font-size="68" font-weight="700">مُراجِع الأكواد</text>
+    <text x="1144" y="236" fill="#f4efe4" font-size="50" font-weight="700">بالذكاء الاصطناعي</text>
+    <text x="1144" y="296" fill="#c9bfb0" font-size="24">الصق ملفاً أو رابطاً من GitHub، واحصل على</text>
+    <text x="1144" y="330" fill="#c9bfb0" font-size="24">ملاحظات مرتّبة حسب الخطورة، لكلٍّ منها إصلاح،</text>
+    <text x="1144" y="364" fill="#c9bfb0" font-size="24">ودرجة لا يختارها النموذج.</text>
+  </g>
+
+<g id="review-panel" transform="translate(-584 0)" font-family="ui-monospace, SFMono-Regular, Consolas, Menlo, monospace">
+    <rect x="636" y="40" width="512" height="340" rx="6" fill="#171310" stroke="#f4efe4" stroke-opacity="0.16"/>
+    <text x="656" y="74" fill="#96897a" font-size="18" letter-spacing="1">pasted-code.js</text>
+    <text x="1128" y="74" fill="#96897a" font-size="18" text-anchor="end" letter-spacing="1">النقاط</text>
+    <line x1="636" y1="90" x2="1148" y2="90" stroke="#f4efe4" stroke-opacity="0.14"/>
+
+    <!-- severity gutter -->
+    <rect x="648" y="104" width="5" height="22" fill="#7a7264"/>
+    <rect x="648" y="134" width="5" height="22" fill="#b8863c"/>
+    <rect x="648" y="164" width="5" height="22" fill="#ff3b30"/>
+    <rect x="648" y="194" width="5" height="22" fill="#d9534f"/>
+    <rect x="648" y="224" width="5" height="22" fill="#d9534f"/>
+    <rect x="636" y="160" width="512" height="30" fill="#ff3b30" fill-opacity="0.09"/>
+
+    <g font-size="18" fill="#5f574c" text-anchor="end">
+      <text x="690" y="121">1</text><text x="690" y="151">2</text><text x="690" y="181">3</text>
+      <text x="690" y="211">4</text><text x="690" y="241">5</text><text x="690" y="271">6</text><text x="690" y="301">7</text>
+    </g>
+    <g font-size="18" fill="#f4efe4">
+      <text x="708" y="121">function getUser(req, res) {</text>
+      <text x="708" y="151">&#160;&#160;const id = req.query.id;</text>
+      <text x="708" y="181">&#160;&#160;const query = "SELECT …" + id;</text>
+      <text x="708" y="211">&#160;&#160;db.query(query, (err, rows) =&gt; {</text>
+      <text x="708" y="241">&#160;&#160;&#160;&#160;res.send(rows[0].name);</text>
+      <text x="708" y="271">&#160;&#160;});</text>
+      <text x="708" y="301">}</text>
+    </g>
+    <g font-size="18" text-anchor="end" font-weight="700">
+      <text x="1128" y="121" fill="#7a7264">−2</text>
+      <text x="1128" y="151" fill="#b8863c">−7</text>
+      <text x="1128" y="181" fill="#ff3b30">−32</text>
+      <text x="1128" y="211" fill="#d9534f">−15</text>
+      <text x="1128" y="241" fill="#d9534f">−17</text>
+    </g>
+
+    <line x1="636" y1="320" x2="1148" y2="320" stroke="#f4efe4" stroke-opacity="0.14"/>
+    <text x="656" y="358" fill="#96897a" font-size="20">100 − 77 =</text>
+    <text x="790" y="360" fill="#ff3b30" font-size="30" font-weight="700">23</text>
+    <text x="840" y="358" fill="#96897a" font-size="18" >درجة الصحّة</text>
+    <text x="1128" y="358" fill="#7a7264" font-size="18" text-anchor="end">بلا سطر −4</text>
+  </g>
+</svg>
