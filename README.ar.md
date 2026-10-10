@@ -113,6 +113,6 @@ npm test
 
 ---
 
-<p align="center">تطوير: <b>محمد الطنسي</b> · <a href="https://www.linkedin.com/in/mohammed-altounsi/">لينكدإن</a></p>
+<p align="center">تطوير: <b>محمد التونسي</b> · <a href="https://www.linkedin.com/in/mohammed-altounsi/">لينكدإن</a></p>
 
 </div>
