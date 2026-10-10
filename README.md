@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/MohammedAltounsi/AI-Code-Reviewer/actions/workflows/ci.yml"><img src="https://github.com/MohammedAltounsi/AI-Code-Reviewer/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
   <a href="https://ai-code-reviewer-coral-five.vercel.app"><img src="https://img.shields.io/badge/live_demo-open-ff7a1a?style=flat" alt="Live demo"></a>
   <img src="https://img.shields.io/badge/Next.js-16-000?style=flat&logo=nextdotjs&logoColor=white" alt="Next.js 16">
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript">
