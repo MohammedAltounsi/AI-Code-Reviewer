@@ -8,7 +8,7 @@ function fakeClient(toolInput: unknown) {
         content: [{ type: 'tool_use', name: 'submit_code_review', input: toolInput }],
       })),
     },
-  } as any
+  } as unknown as Parameters<typeof analyzeCode>[2]
 }
 
 describe('analyzeCode', () => {
@@ -21,7 +21,7 @@ describe('analyzeCode', () => {
   it('throws when Claude does not call the tool', async () => {
     const client = {
       messages: { create: vi.fn(async () => ({ content: [{ type: 'text', text: 'oops' }] })) },
-    } as any
+    } as unknown as Parameters<typeof analyzeCode>[2]
     await expect(analyzeCode('const x = 1', 'file.ts', client)).rejects.toThrow('tool_use')
   })
 })
